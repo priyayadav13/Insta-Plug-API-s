@@ -1,0 +1,50 @@
+input adminLoginInput {
+  email: String
+  password: String
+}
+
+input userLoginInput {
+  # firebaseToken: String!
+  email: String
+  password: String
+}
+
+input signUp {
+  username: String
+  email: String
+  password: String
+  roles: Roles
+  isDisable: Boolean
+}
+
+type LoginSuccess{
+  accessToken: String
+  refreshToken: String!
+  message: String
+  user: User
+}
+
+enum Roles {
+  SUPER_ADMIN
+  ADMIN
+  USER
+}
+
+type User {
+  id: ID
+  email: String
+  password: String
+  username: String
+  roles: Roles
+}
+
+type Mutation {
+  signup(details: signUp!): User
+  adminLogin(input: adminLoginInput!): LoginSuccess
+  userLogin(input: userLoginInput!): LoginSuccess
+  newAccessToken(,refreshToken: String!): String
+}
+
+type Query {
+  sample : String
+}

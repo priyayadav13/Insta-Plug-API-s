@@ -1,0 +1,26 @@
+type Widget {
+    id: ID,
+    name: String
+}
+
+type Mutation {
+    createWidgets(data:CreateWidgetInput!):CreateUpdateWidgetResponse
+    updateWidgets(where:WidgetWhereUniqueInput!,data:UpdateWidgetsInput):CreateUpdateWidgetResponse
+    removeWidgets(where: WidgetWhereUniqueInput!):CommonMessageResponse
+}
+
+input WidgetWhereUniqueInput {
+    id: ID!
+}
+type CreateUpdateWidgetResponse {
+    message: String
+    data: Widget
+}
+
+input CreateWidgetInput {
+    name: String!   
+}
+
+input UpdateWidgetsInput {
+    name: String
+}

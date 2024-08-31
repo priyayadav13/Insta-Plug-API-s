@@ -1,0 +1,75 @@
+type layout {
+  id: ID!
+  type: LayoutType!
+  header:Boolean!
+  # headerConfig: 
+  feedTitle: String!
+  # columnsRows: 
+}
+
+input createLayout {
+  widgetId: ID!,
+  layout: LayoutType!
+}
+input SliderSettings {
+  arrowControl: Boolean,
+  dragControl: Boolean,
+  animationSpeed: Int,  #in seconds
+  autoPlay: Int, #in seconds
+}
+
+input FeedTitle {
+  feedTitle: String!
+}
+
+enum LayoutType {
+  SLIDER
+  GRID
+}
+
+enum ColumnsAndRowsMode {
+  AUTO
+  MANUAL
+}
+
+input ColumnsAndRowsConfigInput {
+  columns: Int
+  rows: Int!
+  gap: Int!
+  width: String!
+}
+
+input ColumnsAndRowsInput {
+  mode: ColumnsAndRowsMode!
+  config: ColumnsAndRowsConfigInput
+}
+
+input CreateOrUpdateLayout {
+  widgetId: ID!
+  type: LayoutType!
+  sliderSettings: SliderSettings!
+  columnsAndRows: ColumnsAndRowsInput!
+  feedTitle: FeedTitle!
+  headers: HeadersInput!
+}
+
+input HeadersConfigInput {
+  profilePicture: Boolean
+  fullName: Boolean
+  userName: Boolean
+  verifiedBadge: Boolean
+  postsCount: Boolean
+  followersCount: Boolean
+  followingCount: Boolean
+  followButton: Boolean
+}
+
+input HeadersInput {
+  showHeaders: Boolean
+  config: HeadersConfigInput
+}
+
+type Mutation {
+  createOrUpdateLayout(data: CreateOrUpdateLayout!): CommonMessageResponse
+
+}

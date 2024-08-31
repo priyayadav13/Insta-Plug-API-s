@@ -1,0 +1,6 @@
+[submodule "src/schema"]
+	path = src/schema
+	url = ssh://git@bitbucket.logicwind.co:7999/in/insta-plug-shared-schema.git
+[submodule "src/shared-lib"]
+	path = src/shared-lib
+	url = ssh://git@bitbucket.logicwind.co:7999/in/insta-plug-main-server.git

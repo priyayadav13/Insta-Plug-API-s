@@ -1,0 +1,117 @@
+scalar Date
+
+input ConnectPublicAccount {
+  widgetId: ID!,
+  input: [String]!,
+}
+input createFilter {
+  sourceId: ID!,
+  filter: SourceFilter!,
+}
+input ConnectToPersonalAccount {
+  authorizeCode: String
+}
+input ConnectToBusinessAccount {
+  authorizeCode: String
+}
+input longLivedAccessToken {
+  accessToken: String
+}
+input businessAccessToken {
+  accessToken: String
+}
+input profileData{
+  accessToken: String
+}
+input businessProfileData{
+  accessToken: String
+}
+input SourceFilter {
+  show: [String]!,
+  hide: [String]!,
+  mention: [String]!,
+  tagged: [String]!
+  # totalNumberOfPost: Int!
+}
+input userMedia {
+  instaUserId: ID
+  accessToken: String  
+}
+input businessMediaData {
+  businessUserId: ID
+  accessToken: String  
+}
+input WidgetWhereUniqueInput {
+  id: ID
+}
+type Source {
+  id: ID,
+  sourceType: sourceType
+  input: [String]!
+  filter: String!
+  widgetId: ID!
+}
+type AccessTokenResponse {
+  access_token: String
+  user_id: String   
+}
+type LongLivedAccessToken {
+  access_token: String
+  token_type: String!
+  expires_in: Float!
+}
+type BusinessAccessToken {
+  access_token: String
+  token_type: String!
+  expires_in: Float!
+}
+type ProfileData {
+  account_type: String
+  id: String!
+  media_count: Int
+  username: String
+}
+type BusinessProfileData {
+  id: String
+  name: String
+}
+type MediaData {
+  caption: String
+  id: String
+  media_type: String
+  media_url: String
+  permalink: String
+  thumbnail_url: String
+  timestamp: Date
+  username: String
+}
+type BusinessMediaData {
+  caption: String
+  id: String
+  media_type: String
+  media_url: String
+  permalink: String
+  thumbnail_url: String
+  timestamp: Date
+  username: String
+}
+enum sourceType {
+  PUBLIC_ACCOUNT
+  PERSONAL_ACCOUNT
+  BUSINESS_ACCOUNT
+} 
+type Mutation {
+  createInput(data: ConnectPublicAccount): CommonMessageResponse,
+  addFilterBySourceId(data: createFilter):CommonMessageResponse
+  connectPersonalAccount(where:WidgetWhereUniqueInput! data: ConnectToPersonalAccount!):AccessTokenResponse
+  connectBusinessAccount(where:WidgetWhereUniqueInput! data: ConnectToBusinessAccount!):AccessTokenResponse
+  longLivedAccessToken(data: longLivedAccessToken!):LongLivedAccessToken
+  businessAccessToken(data: businessAccessToken!):BusinessAccessToken
+  profileData(data: profileData):ProfileData
+  businessProfileData(data: businessProfileData): BusinessProfileData
+  userMediaData(data: userMedia!): [MediaData]
+  BusinessMediaData(data: businessMediaData): [BusinessMediaData]
+}
+type Query {
+  getPostBySourceId(sourceId:ID,accessToken:String):Source 
+}
